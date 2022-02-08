@@ -1,53 +1,60 @@
-import React from "react"
-import { GetStaticProps } from "next"
-import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
+import React from 'react'
+import prisma from '../lib/prisma'
+import { GetStaticProps } from 'next'
+import Layout from '../components/Layout'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: 1,
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
-      author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
-      },
-    },
-  ]
+  const feed = await prisma.vocabulary.findMany({
+    where: { category_id: 1 },
+  })
+
   return { props: { feed } }
 }
 
+type vocabularyProps = {
+  word_id: string
+  category_id: number
+  english: string
+  spanish: string
+  portuguese: string
+  italian: string
+  french: string
+}
 type Props = {
-  feed: PostProps[]
+  feed: vocabularyProps[]
 }
 
 const Blog: React.FC<Props> = (props) => {
+  console.log(props.feed)
   return (
     <Layout>
-      <div className="page">
+      <div className='page'>
         <h1>Public Feed</h1>
-        <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
-          ))}
-        </main>
+        <p>
+          <span>English</span>
+          <span>Spanish</span>
+          <span>Portuguese</span>
+          <span>Italian</span>
+          <span>French</span>
+        </p>
+        {props.feed.map((vocabulary) => (
+          <div key={vocabulary.word_id}>
+            <p className='table'>
+              <span>{vocabulary.english}</span>
+              <span>{vocabulary.spanish}</span>
+              <span>{vocabulary.portuguese}</span>
+              <span>{vocabulary.italian}</span>
+              <span>{vocabulary.french}</span>
+            </p>
+          </div>
+        ))}
       </div>
       <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
+        .page {
         }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
+        .table {
+          display: flex;
+          justify-content: space-around;
         }
       `}</style>
     </Layout>

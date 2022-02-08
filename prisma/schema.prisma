@@ -29,3 +29,13 @@ model User {
 
   @@map(name: "users")
 }
+
+model vocabulary {
+  word_id     String  @id
+  category_id Int
+  english     String?
+  spanish     String?
+  portuguese  String?
+  italian     String?
+  french      String?
+}
