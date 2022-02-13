@@ -2,7 +2,6 @@ import React from 'react'
 import prisma from '../lib/prisma'
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import Layout from '../components/Layout'
 
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.vocabulary_categories.findMany()
@@ -19,39 +18,28 @@ type Props = {
 }
 
 const Blog: React.FC<Props> = (props) => {
-  console.log(props.feed)
   return (
-    <Layout>
-      <div className='page'>
-        <h1>Public Feed</h1>
-        <div>
-          <p>
-            <span>Category</span>
-          </p>
-          {props.feed.map((category) => (
-            <Link
-              key={category.category_id}
-              href={{
-                pathname: `/vocabulary/[category]`,
-                query: { category: category.category_id },
-              }}>
-              <p className='table'>
-                <span>{category.category_id}.</span>
-                <span>{category.category_name}</span>
-              </p>
-            </Link>
-          ))}
-        </div>
+    <div className='page'>
+      <h1>Public Feed</h1>
+      <div>
+        <p>
+          <span>Category</span>
+        </p>
+        {props.feed.map((category) => (
+          <Link
+            key={category.category_id}
+            href={{
+              pathname: `/vocabulary/[category]`,
+              query: { category: category.category_id },
+            }}>
+            <p className='table'>
+              <span>{category.category_id}.</span>
+              <span>{category.category_name}</span>
+            </p>
+          </Link>
+        ))}
       </div>
-      <style jsx>{`
-        .page {
-        }
-        .table {
-          display: flex;
-          justify-content: start;
-        }
-      `}</style>
-    </Layout>
+    </div>
   )
 }
 
