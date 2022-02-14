@@ -16,7 +16,8 @@ model vocabulary_categories {
 }
 
 model vocabulary {
-  word_id     String  @id
+  id          String @id
+  word_id     Int  
   category_id Int
   english     String?
   spanish     String?
