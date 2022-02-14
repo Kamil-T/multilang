@@ -36,20 +36,21 @@ type Props = {
 }
 
 const Category = (props: Props) => {
+  const languages = {
+    english: 'English',
+    spanish: 'Spanish',
+    portuguese: 'Portuguese',
+    italian: 'Italian',
+    french: 'French',
+  }
   return (
     <div className='table w-11/12 m-auto my-3 table-fixed border-2 border-solid border-black '>
       <div className='table-header-group'>
-        <p className='table-row '>
-          <span className='table-cell'>English</span>
-          <span className='table-cell'>Spanish</span>
-          <span className='table-cell'>Portuguese</span>
-          <span className='table-cell'>Italian</span>
-          <span className='table-cell'>French</span>
-        </p>
+        <TableRow words={languages} />
       </div>
       <div className='table-row-group '>
         {props.feed.map((vocabulary) => (
-          <TableRow key={vocabulary.word_id} vocabulary={vocabulary} />
+          <TableRow key={vocabulary.word_id} words={vocabulary} />
         ))}
       </div>
     </div>
