@@ -19,24 +19,26 @@ type Props = {
 
 const Blog: React.FC<Props> = (props) => {
   return (
-    <div className='page'>
-      <h1>Public Feed</h1>
-      <div>
-        <p>
-          <span>Category</span>
-        </p>
+    <div className='m-4'>
+      <h1 className='m-4'>Categories</h1>
+      <div className='m-2'>
         {props.feed.map((category) => (
-          <Link
-            key={category.category_id}
-            href={{
-              pathname: `/vocabulary/[category]`,
-              query: { category: category.category_id },
-            }}>
-            <p className='table'>
-              <span>{category.category_id}.</span>
-              <span>{category.category_name}</span>
-            </p>
-          </Link>
+          <p key={category.category_id} className='m-1'>
+            <Link
+              href={{
+                pathname: `/vocabulary/[category]`,
+                query: {
+                  category: category.category_id,
+                },
+              }}
+              as={`/vocabulary/${category.category_id}`}
+              passHref>
+              <a>
+                <span>{category.category_id}.</span>
+                <span>{category.category_name}</span>
+              </a>
+            </Link>
+          </p>
         ))}
       </div>
     </div>

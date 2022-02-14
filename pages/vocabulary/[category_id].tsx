@@ -1,14 +1,16 @@
 import React from 'react'
 import prisma from '../../lib/prisma'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import TableRow from '../../components/TableRow'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const feed = await prisma.vocabulary_categories.findMany()
 
   const paths = feed.map((category) => ({
-    params: { category_id: String(Number(category?.category_id) || -1) },
+    params: {
+      category_id: String(Number(category?.category_id) || -1),
+    },
   }))
-
   return { paths, fallback: false }
 }
 
@@ -33,8 +35,7 @@ type Props = {
   feed: vocabularyProps[]
 }
 
-const Category: React.FC<Props> = (props) => {
-  console.log(props)
+const Category = (props: Props) => {
   return (
     <div className='table w-11/12 m-auto my-3 table-fixed border-2 border-solid border-black '>
       <div className='table-header-group'>
@@ -48,13 +49,7 @@ const Category: React.FC<Props> = (props) => {
       </div>
       <div className='table-row-group '>
         {props.feed.map((vocabulary) => (
-          <p className='table-row border-collapse ' key={vocabulary.word_id}>
-            <span className='table-cell border'>{vocabulary.english}</span>
-            <span className='table-cell border'>{vocabulary.spanish}</span>
-            <span className='table-cell border'>{vocabulary.portuguese}</span>
-            <span className='table-cell border'>{vocabulary.italian}</span>
-            <span className='table-cell border'>{vocabulary.french}</span>
-          </p>
+          <TableRow key={vocabulary.word_id} vocabulary={vocabulary} />
         ))}
       </div>
     </div>
