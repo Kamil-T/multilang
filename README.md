@@ -1,3 +1,6 @@
-# Fullstack Authentication Example with Next.js and NextAuth.js
+# Multi language dictionary / learning app to help with learning few languages at the same time.
 
-This is the starter project for the fullstack tutorial with Next.js and Prisma. You can find the final version of this project in the [`final`](https://github.com/prisma/blogr-nextjs-prisma/tree/final) branch of this repo.
+After dictionary I plan to add some games to help learning words with option to mix languages so you can better associate different languages and more freely jump between them.
+
+Using heroku and prisma to connect to sql database.
+Dictionary section is fully statically generated site.
