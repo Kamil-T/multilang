@@ -5,7 +5,7 @@ const Header = () => {
   const { languages } = useLanguages()
   let keys = Object.keys(languages)
   return (
-    <div>
+    <div className='m-3'>
       <p>
         {keys.map((name) => (
           <Flag key={name} name={name} />
