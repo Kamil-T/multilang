@@ -4,6 +4,7 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 const Flag = ({ name }) => {
   const { languages, setLanguages } = useLanguages()
   const toggle = () => {
+    // @ts-ignore
     setLanguages((prevState) => ({
       ...prevState,
       [name]: { ...prevState[name], status: !prevState[name].status },
