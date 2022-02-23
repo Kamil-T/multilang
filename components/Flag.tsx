@@ -12,7 +12,7 @@ const Flag = ({ name }) => {
   }
 
   return (
-    <span className=''>
+    <span className='mx-1'>
       {getUnicodeFlagIcon(languages[name].flagUnicode)}
       <input
         type='checkbox'

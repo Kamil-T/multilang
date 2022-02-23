@@ -22,8 +22,8 @@ const Blog = (props: Props) => {
     <>
       <Header />
       <div className='m-4'>
-        <h1 className='m-4'>Categories</h1>
-        <div className='m-2'>
+        <h1 className='m-4 text-lg'>Categories</h1>
+        <div className='m-2 flex flex-wrap justify-between'>
           {props.feed.map((category) => (
             <CategoryList key={category.category_id} category={category} />
           ))}
