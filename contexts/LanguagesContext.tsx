@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 export type languagesContextType = {
   english: {
@@ -65,6 +71,17 @@ const LanguagesProvider = ({ children }: Props) => {
   const [languages, setLanguages] = useState<languagesContextType>(
     languagesContextDefVal
   )
+
+  useEffect(() => {
+    setLanguages(
+      JSON.parse(window.localStorage.getItem('languages')) ||
+        languagesContextDefVal
+    )
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('languages', JSON.stringify({ ...languages }))
+  }, [languages])
 
   return (
     <LanguagesContext.Provider value={{ languages, setLanguages }}>
