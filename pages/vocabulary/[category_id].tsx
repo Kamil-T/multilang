@@ -2,6 +2,7 @@ import React from 'react'
 import prisma from '../../lib/prisma'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import TableRow from '../../components/TableRow'
+import Header from '../../components/Header'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const feed = await prisma.vocabulary_categories.findMany()
@@ -44,16 +45,19 @@ const Category = (props: Props) => {
     french: 'French',
   }
   return (
-    <div className='table w-11/12 m-auto my-3 table-fixed border-2 border-solid border-black '>
-      <div className='table-header-group'>
-        <TableRow words={languages} />
+    <>
+      <Header />
+      <div className='table w-11/12 m-auto my-3 table-fixed border-2 border-solid border-black '>
+        <div className='table-header-group'>
+          <TableRow words={languages} />
+        </div>
+        <div className='table-row-group '>
+          {props.feed.map((vocabulary) => (
+            <TableRow key={vocabulary.word_id} words={vocabulary} />
+          ))}
+        </div>
       </div>
-      <div className='table-row-group '>
-        {props.feed.map((vocabulary) => (
-          <TableRow key={vocabulary.word_id} words={vocabulary} />
-        ))}
-      </div>
-    </div>
+    </>
   )
 }
 
